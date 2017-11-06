@@ -1,0 +1,25 @@
+version: '3.0'
+services:
+  db:
+    image: postgres:9.6.5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    command: ["./bin/wait-for-postgres", "db", "rails", "server"]
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+      - gems:/usr/local/bundle
+    environment:
+      - RAILS_ENV=development
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+volumes:
+  gems:
+  pgdata:

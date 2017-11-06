@@ -1,0 +1,6 @@
+<% if @current_user.id.nil? %>
+    <%= link_to "Log in", new_login_path, class: "btn btn-link" %>
+    <%= link_to "Sign up", new_user_path, class: "btn btn-link" %>
+<% else %>
+    <%= @current_user.name %> <%= link_to "log out", logout_login_path, class: "btn btn-link", method: :delete %>
+<% end %>
